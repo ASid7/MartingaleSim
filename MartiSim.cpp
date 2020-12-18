@@ -157,10 +157,13 @@ try
 
 	std::cout << "start with " << initial_sum << " end with " << sum << " loss " << (initial_sum - sum) << '\n';
 	std::cout << "max sum:" << max_sum << " bet size:" << initial_bet_size << "  bet coef:" << initial_bet_coef
-		<< "mul for bet coef:" << bet_coef_changer << '\n';
-	std::cout << "wins:" << win_counter << '(' << (static_cast<double>(win_counter) / bet_counter) * 100 << "%)\n";
-	std::cout << "loss:" << (bet_counter - win_counter) << '('
-		<< (static_cast<double>(bet_counter - win_counter) / bet_counter) * 100 << "%)\n";
+		  << " mul for bet coef:" << bet_coef_changer << '\n';
+	std::cout << "wins: " << win_counter << " ("
+		  << (static_cast<double>(win_counter) / bet_counter) * 100 << "% expected "
+		  << static_cast<double>(bet_determination_number) / max_bet_number * 100 << "%)\n";
+	std::cout << "loss: " << (bet_counter - win_counter) << " ("
+		  << (static_cast<double>(bet_counter - win_counter) / bet_counter) * 100 << "% expected "
+		  << static_cast<double>(max_bet_number - bet_determination_number) / max_bet_number * 100 << "%)\n";
 
 } // int main(...) try
 catch (const std::exception& e)
