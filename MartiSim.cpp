@@ -141,7 +141,7 @@ try
 
 	auto PrintStatistics = [](const std::vector<std::size_t>& bet_numbers)
 	{
-		auto total_bet_secuences = std::accumulate(std::cbegin(bet_numbers), std::cend(bet_numbers), 0);
+		auto total_bet_secuences = std::accumulate(std::cbegin(bet_numbers), std::cend(bet_numbers), static_cast<std::size_t>(0));
 		int num = 1;
 		for (auto& number : bet_numbers)
 		{
