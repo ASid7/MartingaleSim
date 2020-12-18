@@ -65,22 +65,13 @@ try
 	std::size_t cur_loss_number = 0;
 
 	std::vector<std::size_t> wins_series;
-	auto SaveWinsSeries = [&wins_series](std::size_t series_lenght)
-	{
-		if (series_lenght > 0)
-		{
-			if (wins_series.size() <= series_lenght) wins_series.resize(series_lenght + 1);
-			++wins_series.at(series_lenght);
-		}
-	};
-
 	std::vector<std::size_t> losses_series;
-	auto SaveLossSeries = [&losses_series](std::size_t series_lenght)
+	auto SaveSeries = [](std::size_t series_lenght, std::vector<std::size_t>& series_vector)
 	{
 		if (series_lenght > 0)
 		{
-			if (losses_series.size() < series_lenght) losses_series.resize(series_lenght);
-			++losses_series.at(series_lenght - 1);
+			if (series_vector.size() <= series_lenght) series_vector.resize(series_lenght);
+			++series_vector.at(series_lenght - 1);
 		}
 	};
 
@@ -93,7 +84,7 @@ try
 
 		if (bet < bet_determination_number)
 		{
-			SaveLossSeries(cur_loss_number);
+			SaveSeries(cur_loss_number, losses_series);
 			cur_loss_number = 0;
 
 			++win_counter;
@@ -110,7 +101,7 @@ try
 		}
 		else
 		{
-			SaveWinsSeries(cur_wins_number);
+			SaveSeries(cur_wins_number, wins_series);
 			cur_wins_number = 0;
 
 			++cur_loss_number;
@@ -136,8 +127,8 @@ try
 		std::cout << '\n';
 	} //while
 
-	SaveWinsSeries(cur_wins_number);
-	SaveLossSeries(cur_loss_number);
+	SaveSeries(cur_wins_number, wins_series);
+	SaveSeries(cur_loss_number, losses_series);
 
 	auto PrintStatistics = [](const std::vector<std::size_t>& bet_numbers)
 	{
@@ -150,9 +141,9 @@ try
 		}
 	};
 
-	std::cout << "Wins counter\tAmount\n";
+	std::cout << "Win series\tAmount\tPercentage\n";
 	PrintStatistics(wins_series);
-	std::cout << "Loss counter\tAmount\n";
+	std::cout << "Loss series\tAmount\tPercentage\n";
 	PrintStatistics(losses_series);
 
 	std::cout << "start with " << initial_sum << " end with " << sum << " loss " << (initial_sum - sum) << '\n';
